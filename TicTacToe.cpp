@@ -1,3 +1,4 @@
+//coded by RingoBarbos. РЇРЅРґРµРєСЃ.РќР°СЃС‚РѕР»СЊРЅС‹Рµ РёРіСЂС‹
 #include <iostream>
 #include <stdlib.h>
 
@@ -15,7 +16,7 @@ using namespace std;
 	char ryad10[10] = { '*','*', '*', '*', '*', '*', '*', '*', '*', '*' };
 	int player = 1;
 
-int hod(int a, int b) {  //Функция, отвечающая за ходы.
+int hod(int a, int b) {  //Г”ГіГ­ГЄГ¶ГЁГї, Г®ГІГўГҐГ·Г ГѕГ№Г Гї Г§Г  ГµГ®Г¤Г».
 	if (a == 1) {
 		if (ryad1[b - 1] != '*') {
 			return 1;
@@ -128,7 +129,7 @@ int hod(int a, int b) {  //Функция, отвечающая за ходы.
 	}
 	return 0;
 }
-int endgamecheck() { //Проверка комбинаций
+int endgamecheck() { //ГЏГ°Г®ГўГҐГ°ГЄГ  ГЄГ®Г¬ГЎГЁГ­Г Г¶ГЁГ©
 	int k = 0;
 	int s = 0;
 	int d = 0;
@@ -342,7 +343,7 @@ int endgamecheck() { //Проверка комбинаций
 	}
 	return 0;
 }
-void pole() { //Вывод поля.
+void pole() { //Г‚Г»ГўГ®Г¤ ГЇГ®Г«Гї.
 	for (int i = 1; i < 11; i++) {
 		cout << i << " ";
 	}
@@ -399,7 +400,7 @@ void pole() { //Вывод поля.
 	cout << endl;
 	return;
 }
-int newgame() { //Обнуление игры.
+int newgame() { //ГЋГЎГ­ГіГ«ГҐГ­ГЁГҐ ГЁГЈГ°Г».
 	for (int i = 0; i < 10; i++) {
 		ryad1[i] = '*';
 	}
@@ -434,10 +435,10 @@ int newgame() { //Обнуление игры.
 	system("cls");
 	return 0;
 }
-int main() { //Собственно мэин.
+int main() { //Г‘Г®ГЎГ±ГІГўГҐГ­Г­Г® Г¬ГЅГЁГ­.
 	setlocale(LC_ALL, "rus");
 newgame:
-	cout << "Крестики-нолики v1.0 (с) RingoBarbos" << endl;
+	cout << "ГЉГ°ГҐГ±ГІГЁГЄГЁ-Г­Г®Г«ГЁГЄГЁ v1.0 (Г±) RingoBarbos" << endl;
 again:
 	pole();
 	int a, b;
@@ -445,15 +446,15 @@ again:
 	int check;
 	char otvet;
 retry:
-	cout << "Ход игрока" << player << ": ";
+	cout << "Г•Г®Г¤ ГЁГЈГ°Г®ГЄГ " << player << ": ";
 	cin >> a >> b;
 	if ((a > 10)||(b > 10) || (a < 1) || (b < 1)) {
-		cout << "ОШИБКА! ВЫ ВВЕЛИ КООРДИНАТЫ ЗА ПРЕДЕЛАМИ ПОЛЯ!" << endl;
+		cout << "ГЋГГ€ГЃГЉГЂ! Г‚Г› Г‚Г‚Г…Г‹Г€ ГЉГЋГЋГђГ„Г€ГЌГЂГ’Г› Г‡ГЂ ГЏГђГ…Г„Г…Г‹ГЂГЊГ€ ГЏГЋГ‹Гџ!" << endl;
 		goto retry;
 	}
 	check = hod(a,b);
 	if (check == 1) {
-		cout << "ОШИБКА! КЛЕТКА ЗАНЯТА!" << endl;
+		cout << "ГЋГГ€ГЃГЉГЂ! ГЉГ‹Г…Г’ГЉГЂ Г‡ГЂГЌГџГ’ГЂ!" << endl;
 		goto retry;
 	}
 	hod(a, b);
@@ -461,11 +462,11 @@ retry:
 	int draw=0;
 	hodi++;
 	if (hodi == 100) {
-		cout << "Ничья!" << endl;
+		cout << "ГЌГЁГ·ГјГї!" << endl;
 		draw = 1;
 	}
 	if (draw == 1) {
-		cout << "Хотите начать заново? y/n?: ";
+		cout << "Г•Г®ГІГЁГІГҐ Г­Г Г·Г ГІГј Г§Г Г­Г®ГўГ®? y/n?: ";
 zan:
 		cin >> otvet;
 		if (otvet == 'y') {
@@ -476,14 +477,14 @@ zan:
 			return 0;
 		}
 		else {
-			cout << "ОШИБКА!" << endl;
+			cout << "ГЋГГ€ГЃГЉГЂ!" << endl;
 			goto zan;
 		}
 	}
 	if (end == 1) {
 		pole();
-		cout << "Игрок " << player << " победил!" << endl;
-		cout << "Хотите начать заново? y/n?: ";
+		cout << "Г€ГЈГ°Г®ГЄ " << player << " ГЇГ®ГЎГҐГ¤ГЁГ«!" << endl;
+		cout << "Г•Г®ГІГЁГІГҐ Г­Г Г·Г ГІГј Г§Г Г­Г®ГўГ®? y/n?: ";
 zanovo:
 		cin >> otvet;
 		if (otvet == 'y') {
@@ -494,7 +495,7 @@ zanovo:
 			return 0;
 		}
 		else {
-			cout << "ОШИБКА!"<<endl;
+			cout << "ГЋГГ€ГЃГЉГЂ!"<<endl;
 			goto zanovo;
 		}
 	}
