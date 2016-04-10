@@ -459,28 +459,6 @@ retry:
 	}
 	hod(a, b);
 	int end = endgamecheck();
-	int draw=0;
-	hodi++;
-	if (hodi == 100) {
-		cout << "Ничья!" << endl;
-		draw = 1;
-	}
-	if (draw == 1) {
-		cout << "Хотите начать заново? y/n?: ";
-zan:
-		cin >> otvet;
-		if (otvet == 'y') {
-			newgame();
-			goto newgame;
-		}
-		else if (otvet == 'n') {
-			return 0;
-		}
-		else {
-			cout << "ОШИБКА!" << endl;
-			goto zan;
-		}
-	}
 	if (end == 1) {
 		pole();
 		cout << "Игрок " << player << " победил!" << endl;
