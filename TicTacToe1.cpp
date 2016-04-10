@@ -15,6 +15,7 @@ char ryad8[10] = { '*','*', '*', '*', '*', '*', '*', '*', '*', '*' };
 char ryad9[10] = { '*','*', '*', '*', '*', '*', '*', '*', '*', '*' };
 char ryad10[10] = { '*','*', '*', '*', '*', '*', '*', '*', '*', '*' };
 int player = 1;
+int hodi = 0;
 
 int hod(int a, int b) {  //Функция, отвечающая за ходы.
 	if (a == 1) {
@@ -352,7 +353,7 @@ int endgamecheck() { //Проверка комбинаций
 		}
 		if (n > 3) { return 1; }
 	}
-
+	return 0;
 }
 void pole() { //Вывод поля.
 	for (int i = 1; i < 11; i++) {
@@ -469,6 +470,7 @@ retry:
 		goto retry;
 	}
 	hod(a, b);
+	hodi++;
 	int end = endgamecheck();
 	if (end == 1) {
 		pole();
@@ -486,6 +488,24 @@ retry:
 		else {
 			cout << "ОШИБКА!" << endl;
 			goto zanovo;
+		}
+	}
+	if (hodi == 100) {
+		pole();
+		cout << "Игрок " << player << " победил!" << endl;
+		cout << "Хотите начать заново? y/n?: ";
+	zan:
+		cin >> otvet;
+		if (otvet == 'y') {
+			newgame();
+			goto newgame;
+		}
+		else if (otvet == 'n') {
+			return 0;
+		}
+		else {
+			cout << "ОШИБКА!" << endl;
+			goto zan;
 		}
 	}
 	if (player == 1) {
