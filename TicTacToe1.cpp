@@ -227,60 +227,71 @@ int endgamecheck() { //Проверка комбинаций
 	for (int z = 0; z < 10; z++) {
 		int i = 0;
 		if (d > 3) { return 1; }
+		i = 0;
 		if (z < 1) {
 			if ((ryad1[i] == ryad2[i + 1]) && (ryad1[i] != '*')) { d++; }
 			else { d = 0; }
+			if (d > 3) { return 1; }
 			i++;
 		}
 		if (z < 2) {
 			if (d > 3) { return 1; }
 			if ((ryad2[i] == ryad3[i + 1]) && (ryad2[i] != '*')) { d++; }
 			else { d = 0; }
+			if (d > 3) { return 1; }
 			i++;
 		}
 		if (z < 3) {
 			if (d > 3) { return 1; }
 			if ((ryad3[i] == ryad4[i + 1]) && (ryad3[i] != '*')) { d++; }
 			else { d = 0; }
+			if (d > 3) { return 1; }
 			i++;
 		}
 		if (z < 4) {
 			if (d > 3) { return 1; }
 			if ((ryad4[i] == ryad5[i + 1]) && (ryad4[i] != '*')) { d++; }
 			else { d = 0; }
+			if (d > 3) { return 1; }
 			i++;
 		}
 		if (z < 5) {
 			if (d > 3) { return 1; }
 			if ((ryad5[i] == ryad6[i + 1]) && (ryad5[i] != '*')) { d++; }
 			else { d = 0; }
+			if (d > 3) { return 1; }
 			i++;
 		}
 		if (z < 6) {
 			if (d > 3) { return 1; }
 			if ((ryad6[i] == ryad7[i + 1]) && (ryad6[i] != '*')) { d++; }
 			else { d = 0; }
+			if (d > 3) { return 1; }
 			i++;
 		}
 		if (z < 7) {
 			if (d > 3) { return 1; }
 			if ((ryad7[i] == ryad8[i + 1]) && (ryad7[i] != '*')) { d++; }
 			else { d = 0; }
+			if (d > 3) { return 1; }
 			i++;
 		}
 		if (z < 8) {
 			if (d > 3) { return 1; }
 			if ((ryad8[i] == ryad9[i + 1]) && (ryad8[i] != '*')) { d++; }
 			else { d = 0; }
+			if (d > 3) { return 1; }
 			i++;
 		}
 		if (z < 9) {
 			if (d > 3) { return 1; }
 			if ((ryad9[i] == ryad10[i + 1]) && (ryad9[i] != '*')) { d++; }
 			else { d = 0; }
+			if (d > 3) { return 1; }
 			i++;
 		}
 		if (d > 3) { return 1; }
+		
 	}
 
 	for (int z = 0; z < 10; z++) {
@@ -341,7 +352,7 @@ int endgamecheck() { //Проверка комбинаций
 		}
 		if (n > 3) { return 1; }
 	}
-	return 0;
+	
 }
 void pole() { //Вывод поля.
 	for (int i = 1; i < 11; i++) {
@@ -438,7 +449,7 @@ int newgame() { //Обнуление игры.
 int main() { //Собственно мэин.
 	setlocale(LC_ALL, "rus");
 newgame:
-	cout << "Крестики-нолики v1.0 (с) RingoBarbos" << endl;
+	cout << "Крестики-нолики v1.0 (с) RingoB" << endl;
 again:
 	pole();
 	int a, b;
