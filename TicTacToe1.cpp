@@ -4,17 +4,17 @@
 
 using namespace std;
 
-	char ryad1[10] = { '*','*', '*', '*', '*', '*', '*', '*', '*', '*' };
-	char ryad2[10] = { '*','*', '*', '*', '*', '*', '*', '*', '*', '*' };
-	char ryad3[10] = { '*','*', '*', '*', '*', '*', '*', '*', '*', '*' };
-	char ryad4[10] = { '*','*', '*', '*', '*', '*', '*', '*', '*', '*' };
-	char ryad5[10] = { '*','*', '*', '*', '*', '*', '*', '*', '*', '*' };
-	char ryad6[10] = { '*','*', '*', '*', '*', '*', '*', '*', '*', '*' };
-	char ryad7[10] = { '*','*', '*', '*', '*', '*', '*', '*', '*', '*' };
-	char ryad8[10] = { '*','*', '*', '*', '*', '*', '*', '*', '*', '*' };
-	char ryad9[10] = { '*','*', '*', '*', '*', '*', '*', '*', '*', '*' };
-	char ryad10[10] = { '*','*', '*', '*', '*', '*', '*', '*', '*', '*' };
-	int player = 1;
+char ryad1[10] = { '*','*', '*', '*', '*', '*', '*', '*', '*', '*' };
+char ryad2[10] = { '*','*', '*', '*', '*', '*', '*', '*', '*', '*' };
+char ryad3[10] = { '*','*', '*', '*', '*', '*', '*', '*', '*', '*' };
+char ryad4[10] = { '*','*', '*', '*', '*', '*', '*', '*', '*', '*' };
+char ryad5[10] = { '*','*', '*', '*', '*', '*', '*', '*', '*', '*' };
+char ryad6[10] = { '*','*', '*', '*', '*', '*', '*', '*', '*', '*' };
+char ryad7[10] = { '*','*', '*', '*', '*', '*', '*', '*', '*', '*' };
+char ryad8[10] = { '*','*', '*', '*', '*', '*', '*', '*', '*', '*' };
+char ryad9[10] = { '*','*', '*', '*', '*', '*', '*', '*', '*', '*' };
+char ryad10[10] = { '*','*', '*', '*', '*', '*', '*', '*', '*', '*' };
+int player = 1;
 
 int hod(int a, int b) {  //Функция, отвечающая за ходы.
 	if (a == 1) {
@@ -136,7 +136,7 @@ int endgamecheck() { //Проверка комбинаций
 	int n = 0;
 	for (int i = 0; i < 10; i++) {
 		if (k > 3) { return 1; }
-		if ((ryad1[i] == ryad2[i]) &&(ryad1[i] != '*')) { k++; }
+		if ((ryad1[i] == ryad2[i]) && (ryad1[i] != '*')) { k++; }
 		else { k = 0; }
 		if (k > 3) { return 1; }
 		if ((ryad2[i] == ryad3[i]) && (ryad2[i] != '*')) { k++; }
@@ -148,7 +148,7 @@ int endgamecheck() { //Проверка комбинаций
 		if ((ryad4[i] == ryad5[i]) && (ryad4[i] != '*')) { k++; }
 		else { k = 0; }
 		if (k > 3) { return 1; }
-		if ((ryad5[i] == ryad6[i] )&& (ryad5[i] != '*')) { k++; }
+		if ((ryad5[i] == ryad6[i]) && (ryad5[i] != '*')) { k++; }
 		else { k = 0; }
 		if (k > 3) { return 1; }
 		if ((ryad6[i] == ryad7[i]) && (ryad6[i] != '*')) { k++; }
@@ -291,11 +291,11 @@ int endgamecheck() { //Проверка комбинаций
 			i++;
 		}
 		if (d > 3) { return 1; }
-		
+
 	}
 
 	for (int z = 0; z < 10; z++) {
-		int i = 9;
+		int i = 10;
 		if (n > 3) { return 1; }
 		if (z < 1) {
 			if ((ryad1[i] == ryad2[i - 1]) && (ryad1[i] != '*')) { n++; }
@@ -352,7 +352,7 @@ int endgamecheck() { //Проверка комбинаций
 		}
 		if (n > 3) { return 1; }
 	}
-	
+
 }
 void pole() { //Вывод поля.
 	for (int i = 1; i < 11; i++) {
@@ -360,7 +360,7 @@ void pole() { //Вывод поля.
 	}
 	cout << endl;
 	for (int i = 0; i < 10; i++) {
-		cout << ryad1[i]<<" ";
+		cout << ryad1[i] << " ";
 	}
 	cout << "1";
 	cout << endl;
@@ -446,6 +446,7 @@ int newgame() { //Обнуление игры.
 	system("cls");
 	return 0;
 }
+
 int main() { //Собственно мэин.
 	setlocale(LC_ALL, "rus");
 newgame:
@@ -453,17 +454,16 @@ newgame:
 again:
 	pole();
 	int a, b;
-	int hodi = 0;
 	int check;
 	char otvet;
 retry:
 	cout << "Ход игрока" << player << ": ";
 	cin >> a >> b;
-	if ((a > 10)||(b > 10) || (a < 1) || (b < 1)) {
+	if ((a > 10) || (b > 10) || (a < 1) || (b < 1)) {
 		cout << "ОШИБКА! ВЫ ВВЕЛИ КООРДИНАТЫ ЗА ПРЕДЕЛАМИ ПОЛЯ!" << endl;
 		goto retry;
 	}
-	check = hod(a,b);
+	check = hod(a, b);
 	if (check == 1) {
 		cout << "ОШИБКА! КЛЕТКА ЗАНЯТА!" << endl;
 		goto retry;
@@ -474,7 +474,7 @@ retry:
 		pole();
 		cout << "Игрок " << player << " победил!" << endl;
 		cout << "Хотите начать заново? y/n?: ";
-zanovo:
+	zanovo:
 		cin >> otvet;
 		if (otvet == 'y') {
 			newgame();
@@ -484,15 +484,15 @@ zanovo:
 			return 0;
 		}
 		else {
-			cout << "ОШИБКА!"<<endl;
+			cout << "ОШИБКА!" << endl;
 			goto zanovo;
 		}
 	}
-		if (player == 1) {
-			player = 2;
-		}
-		else {
-			player = 1;
-		}
-		goto again;
+	if (player == 1) {
+		player = 2;
+	}
+	else {
+		player = 1;
+	}
+	goto again;
 }
