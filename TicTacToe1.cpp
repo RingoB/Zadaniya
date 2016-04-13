@@ -15,7 +15,6 @@ char ryad8[10] = { '*','*', '*', '*', '*', '*', '*', '*', '*', '*' };
 char ryad9[10] = { '*','*', '*', '*', '*', '*', '*', '*', '*', '*' };
 char ryad10[10] = { '*','*', '*', '*', '*', '*', '*', '*', '*', '*' };
 int player = 1;
-int hodi = 0;
 
 int hod(int a, int b) {  //Функция, отвечающая за ходы.
 	if (a == 1) {
@@ -470,7 +469,6 @@ retry:
 		goto retry;
 	}
 	hod(a, b);
-	hodi++;
 	int end = endgamecheck();
 	if (end == 1) {
 		pole();
@@ -490,24 +488,7 @@ retry:
 			goto zanovo;
 		}
 	}
-	if (hodi == 100) {
-		pole();
-		cout << "Игрок " << player << " победил!" << endl;
-		cout << "Хотите начать заново? y/n?: ";
-	zan:
-		cin >> otvet;
-		if (otvet == 'y') {
-			newgame();
-			goto newgame;
-		}
-		else if (otvet == 'n') {
-			return 0;
-		}
-		else {
-			cout << "ОШИБКА!" << endl;
-			goto zan;
-		}
-	}
+
 	if (player == 1) {
 		player = 2;
 	}
