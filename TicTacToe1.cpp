@@ -303,7 +303,7 @@ int endgamecheck() { //Проверка комбинаций
 	}
 
 	for (int z = 0; z < 10; z++) { //Диагональ влево
-		int i = 10;
+		int i = 9;
 		if (n > 3) { return 1; }
 		if (z < 1) {
 			if ((ryad1[i] == ryad2[i - 1]) && (ryad1[i] != '*')) { n++; }
