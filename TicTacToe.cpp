@@ -5,11 +5,10 @@
 //Можно было функцию с проверками комбинаций разбить ещё на несколько функций (Горизонталь, вертикаль, диагоноль влево, диагональ вправо).
 //Код ужасен, но это мой первый большой проект на С++.
 //На компиляторе VS2015 всё прекрасно запускается.
-//Стоит на гитхабе дата измения 16.04, потому именно тогда я добавлял эти комментарии.
+//Стоит на гитхабе дата измения 16.04, потому именно тогда я добавлял эти комметарии.
 //Приятной проверки.
 #include <iostream>
 #include <stdlib.h>
-
 using namespace std;
 
 char ryad1[10] = { '*','*', '*', '*', '*', '*', '*', '*', '*', '*' };
@@ -232,10 +231,9 @@ int endgamecheck() { //Проверка комбинаций
 		else { s = 0; }
 		if (s > 3) { return 1; }
 	}
-	for (int z = 0; z < 10; z++) { //Диагональ вправо
+	for (int z = 0; z < 19; z++) { //Диагональ вправо
 		int i = 0;
 		if (d > 3) { return 1; }
-		i = 0;
 		if (z < 1) {
 			if ((ryad1[i] == ryad2[i + 1]) && (ryad1[i] != '*')) { d++; }
 			else { d = 0; }
@@ -293,6 +291,104 @@ int endgamecheck() { //Проверка комбинаций
 		}
 		if (z < 9) {
 			if (d > 3) { return 1; }
+			if (i == 9) {
+				break;
+			}
+			if ((ryad9[i] == ryad10[i + 1]) && (ryad9[i] != '*')) { d++; }
+			else { d = 0; }
+			if (d > 3) { return 1; }
+			i++;
+		}
+		if (z == 9) {
+			i = 0;
+		}
+		if (z == 10) {
+			i = 1;
+		}
+		if (z == 11) {
+			i = 2;
+		}
+		if (z == 12) {
+			i = 3;
+		}
+		if (z == 13) {
+			i = 4;
+		}
+		if (z == 14) {
+			i = 5;
+		}
+		if (z == 15) {
+			i = 6;
+		}
+		if (z == 16) {
+			i = 7;
+		}
+		if (z == 17) {
+			i = 8;
+		}
+		if (z == 18) {
+			i = 9;
+		}
+		if (z < 10) {
+			if ((ryad1[i] == ryad2[i + 1]) && (ryad1[i] != '*')) { d++; }
+			else { d = 0; }
+			if (d > 3) { return 1; }
+			i++;
+		}
+		if (z < 11) {
+			if (d > 3) { return 1; }
+			if ((ryad2[i] == ryad3[i + 1]) && (ryad2[i] != '*')) { d++; }
+			else { d = 0; }
+			if (d > 3) { return 1; }
+			i++;
+		}
+		if (z < 12) {
+			if (d > 3) { return 1; }
+			if ((ryad3[i] == ryad4[i + 1]) && (ryad3[i] != '*')) { d++; }
+			else { d = 0; }
+			if (d > 3) { return 1; }
+			i++;
+		}
+		if (z < 13) {
+			if (d > 3) { return 1; }
+			if ((ryad4[i] == ryad5[i + 1]) && (ryad4[i] != '*')) { d++; }
+			else { d = 0; }
+			if (d > 3) { return 1; }
+			i++;
+		}
+		if (z < 14) {
+			if (d > 3) { return 1; }
+			if ((ryad5[i] == ryad6[i + 1]) && (ryad5[i] != '*')) { d++; }
+			else { d = 0; }
+			if (d > 3) { return 1; }
+			i++;
+		}
+		if (z < 15) {
+			if (d > 3) { return 1; }
+			if ((ryad6[i] == ryad7[i + 1]) && (ryad6[i] != '*')) { d++; }
+			else { d = 0; }
+			if (d > 3) { return 1; }
+			i++;
+		}
+		if (z < 16) {
+			if (d > 3) { return 1; }
+			if ((ryad7[i] == ryad8[i + 1]) && (ryad7[i] != '*')) { d++; }
+			else { d = 0; }
+			if (d > 3) { return 1; }
+			i++;
+		}
+		if (z < 17) {
+			if (d > 3) { return 1; }
+			if ((ryad8[i] == ryad9[i + 1]) && (ryad8[i] != '*')) { d++; }
+			else { d = 0; }
+			if (d > 3) { return 1; }
+			i++;
+		}
+		if (z < 18) {
+			if (d > 3) { return 1; }
+			if (i == 9) {
+				break;
+			}
 			if ((ryad9[i] == ryad10[i + 1]) && (ryad9[i] != '*')) { d++; }
 			else { d = 0; }
 			if (d > 3) { return 1; }
@@ -302,7 +398,7 @@ int endgamecheck() { //Проверка комбинаций
 
 	}
 
-	for (int z = 0; z < 10; z++) { //Диагональ влево
+	for (int z = 0; z < 19; z++) { //Диагональ влево
 		int i = 9;
 		if (n > 3) { return 1; }
 		if (z < 1) {
@@ -357,10 +453,97 @@ int endgamecheck() { //Проверка комбинаций
 			if ((ryad9[i] == ryad10[i - 1]) && (ryad9[i] != '*')) { n++; }
 			else { n = 0; }
 			i--;
+			if (n > 3) { return 1; }
+		}
+		if (z == 9) {
+			i = 9;
+		}
+		if (z == 10) {
+			i = 8;
+		}
+		if (z == 11) {
+			i = 7;
+		}
+		if (z == 12) {
+			i = 6;
+		}
+		if (z == 13) {
+			i = 5;
+		}
+		if (z == 14) {
+			i = 4;
+		}
+		if (z == 15) {
+			i = 3;
+		}
+		if (z == 16) {
+			i = 2;
+		}
+		if (z == 17) {
+			i = 1;
+		}
+		if (z == 18) {
+			i = 0;
+		}
+		if (z < 10) {
+			if ((ryad1[i] == ryad2[i - 1]) && (ryad1[i] != '*')) { n++; }
+			else { n = 0; }
+			i--;
+		}
+		if (z < 11) {
+			if (n > 3) { return 1; }
+			if ((ryad2[i] == ryad3[i - 1]) && (ryad2[i] != '*')) { n++; }
+			else { n = 0; }
+			i--;
+		}
+		if (z < 13) {
+			if (n > 3) { return 1; }
+			if ((ryad3[i] == ryad4[i - 1]) && (ryad3[i] != '*')) { n++; }
+			else { n = 0; }
+			i--;
+		}
+		if (z < 14) {
+			if (n > 3) { return 1; }
+			if ((ryad4[i] == ryad5[i - 1]) && (ryad4[i] != '*')) { n++; }
+			else { n = 0; }
+			i--;
+		}
+		if (z < 15) {
+			if (n > 3) { return 1; }
+			if ((ryad5[i] == ryad6[i - 1]) && (ryad5[i] != '*')) { n++; }
+			else { n = 0; }
+			i--;
+		}
+		if (z < 16) {
+			if (n > 3) { return 1; }
+			if ((ryad6[i] == ryad7[i - 1]) && (ryad6[i] != '*')) { n++; }
+			else { n = 0; }
+			i--;
+		}
+		if (z < 17) {
+			if (n > 3) { return 1; }
+			if ((ryad7[i] == ryad8[i - 1]) && (ryad7[i] != '*')) { n++; }
+			else { n = 0; }
+			i--;
+		}
+		if (z < 18) {
+			if (n > 3) { return 1; }
+			if ((ryad8[i] == ryad9[i - 1]) && (ryad8[i] != '*')) { n++; }
+			else { n = 0; }
+			i--;
+		}
+		if (z < 19) {
+			if (n > 3) { return 1; }
+			if (i == 0) {
+				break;
+			}
+			if ((ryad9[i] == ryad10[i - 1]) && (ryad9[i] != '*')) { n++; }
+			else { n = 0; }
+			i--;
 		}
 		if (n > 3) { return 1; }
 	}
-	return 0;
+
 }
 void pole() { //Вывод поля.
 	for (int i = 1; i < 11; i++) {
@@ -496,7 +679,7 @@ retry:
 			goto zanovo;
 		}
 	}
-	
+
 	if (player == 1) {
 		player = 2;
 	}
