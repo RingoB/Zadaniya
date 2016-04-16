@@ -9,7 +9,6 @@
 //Приятной проверки.
 #include <iostream>
 #include <stdlib.h>
-
 using namespace std;
 
 char ryad1[10] = { '*','*', '*', '*', '*', '*', '*', '*', '*', '*' };
