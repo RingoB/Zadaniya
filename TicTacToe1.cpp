@@ -643,11 +643,12 @@ newgame:
 	cout << "Крестики-нолики v1.0 (с) RingoB" << endl;
 again:
 	pole();
+	//Testing int wins[2]={0,0};
 	int a, b;
 	int check;
 	char otvet;
 retry:
-	cout << "Ход игрока" << player << ": ";
+	cout << "Ход игрока " << player << ": ";
 	cin >> a >> b;
 	if ((a > 10) || (b > 10) || (a < 1) || (b < 1)) {
 		cout << "ОШИБКА! ВЫ ВВЕЛИ КООРДИНАТЫ ЗА ПРЕДЕЛАМИ ПОЛЯ!" << endl;
@@ -663,6 +664,10 @@ retry:
 	if (end == 1) {
 		pole();
 		cout << "Игрок " << player << " победил!" << endl;
+		/* Testing
+		wins[player-1]++;
+		cout << "Счёт: Игрок 1 " << wins[0] << " : " << wins[1] << " Игрок 2"<<endl;
+		*/
 		cout << "Хотите начать заново? y/n?: ";
 	zanovo:
 		cin >> otvet;
@@ -678,7 +683,7 @@ retry:
 			goto zanovo;
 		}
 	}
-
+	
 	if (player == 1) {
 		player = 2;
 	}
