@@ -7,10 +7,7 @@
 //Приятной проверки.
 #include <iostream>
 #include <fstream>
-#include <stdlib.h>
 #include <windows.h>
-#include <string>
-#include <iomanip>
 using namespace std;
 
 char ryad1[10] = { '.','.', '.', '.', '.', '.', '.', '.', '.', '.' };
