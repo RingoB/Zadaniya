@@ -663,7 +663,7 @@ int main() { //Собственно мэин.
 
 	setlocale(LC_ALL, "rus");
 newgame:
-	cout << "Крестики-нолики v1.0 (с) RingoB" << endl;
+	cout << "Крестики-нолики v1.1 (с) RingoB" << endl;
 again:
 	pole();
 	int a, b;
