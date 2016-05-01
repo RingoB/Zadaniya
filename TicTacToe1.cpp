@@ -636,7 +636,7 @@ int newgame() { //Обнуление игры.
 	system("cls");
 	return 0;
 }
-string ExePath() { //Читаем путь
+string ExePath() { //Читаем путь(thx StackOverflow)
 	char buffer[MAX_PATH];
 	GetModuleFileNameA(NULL, buffer, MAX_PATH);
 	string::size_type pos = string(buffer).find_last_of("\\/");
