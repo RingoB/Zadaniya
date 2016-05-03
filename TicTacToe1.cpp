@@ -14,6 +14,11 @@
 // + Добавлена отмена хода
 // + Добавлен сброс счёта
 
+// version 1.2.1 alpha changelog:
+// + Добавлен тупой бот. 
+
+//Возможно, сделаю его умней потом.
+
 #include <iostream>
 #include <fstream>
 #include <windows.h>
@@ -707,9 +712,27 @@ newgame:
 	bool ind = false;
 	int check;
 	char otvet;
-	cout << "Крестики-нолики v1.2 (с) RingoB" << endl;
+	int mode;
+	cout << "Крестики-нолики v1.2.1 alpha (с) RingoB" << endl;
+	cout << "1 игрок или 2 игрока? 1/2?" << endl;
+	cin >> mode;
 	cout << "Нажмите F10, чтобы открыть командную строку." << endl;
 again:
+	if ((player == 2) && (mode == 1)) {
+		pole();
+		newhod:
+		a = 1 + rand() % 10;
+		b = 1 + rand() % 10;
+		if ((a > 10) || (b > 10) || (a < 1) || (b < 1)) {
+			goto newhod;
+		}
+		check = hod(a, b);
+		if (check == 1) {
+			goto newhod;
+		}
+		hod(a, b);
+		goto afterbot;
+	}
 	pole();
 retry:
 	cout << "Нажмите любую клавишу для продолжения..." << endl;
@@ -767,6 +790,7 @@ retry:
 		goto next;
 	}
 	hod(a, b);
+	afterbot:
 	int end = endgamecheck();
 	if (end == 1) {
 		pole();
