@@ -5,9 +5,19 @@
 //Код ужасен, но это мой первый большой проект на С++.
 //На компиляторе VS2015 всё прекрасно запускается.
 //Приятной проверки.
+
+// version 1.1 changelog:
+// + Теперь сохраняются результаты игр.
+
+// version 1.2 changelog:
+// + Добавлена командная строка.
+// + Добавлена отмена хода
+// + Добавлен сброс счёта
+
 #include <iostream>
 #include <fstream>
 #include <windows.h>
+#include <conio.h>
 using namespace std;
 
 char ryad1[10] = { '.','.', '.', '.', '.', '.', '.', '.', '.', '.' };
@@ -636,17 +646,51 @@ int newgame() { //Обнуление игры.
 	system("cls");
 	return 0;
 }
-string ExePath() { //Читаем путь(thx StackOverflow)
+
+void cancel(int a,int b) {
+	if (a == 1) {
+		(ryad1[b - 1] = '.');
+	}
+	else if (a == 2) {
+		(ryad2[b - 1] = '.');
+	}
+	else if (a == 3) {
+		(ryad3[b - 1] = '.');
+	}
+	else if (a == 4) {
+		(ryad4[b - 1] = '.');
+	}
+	else if (a == 5) {
+		(ryad5[b - 1] = '.');
+	}
+	else if (a == 6) {
+		(ryad6[b - 1] = '.');
+	}
+	else if (a == 7) {
+		(ryad7[b - 1] = '.');
+	}
+	else if (a == 8) {
+		(ryad8[b - 1] = '.');
+	}
+	else if (a == 9) {
+		(ryad9[b - 1] = '.');
+	}
+	else if (a == 10) {
+		(ryad10[b - 1] = '.');
+	}
+}
+
+string ExePath() { //Читаем путь
 	char buffer[MAX_PATH];
 	GetModuleFileNameA(NULL, buffer, MAX_PATH);
 	string::size_type pos = string(buffer).find_last_of("\\/");
 	return string(buffer).substr(0, pos);
 }
-//Добавил загрузку данных о выигрышах с файла. 01.05.16
+
 int main() { //Собственно мэин.
 	int wins[2] = { 0,0 };
-	string settings = ExePath()+"\\data.ini"; //BETA TESTING
-	fstream file;//BETA TESTING
+	string settings = ExePath()+"\\data.ini";
+	fstream file;
 	file.open(settings);
 	if (file)
 	{
@@ -659,23 +703,68 @@ int main() { //Собственно мэин.
 
 	setlocale(LC_ALL, "rus");
 newgame:
-	cout << "Крестики-нолики v1.1 (с) RingoB" << endl;
-again:
-	pole();
-	int a, b;
+	int a=1, b=1;
+	bool ind = false;
 	int check;
 	char otvet;
+	cout << "Крестики-нолики v1.2 (с) RingoB" << endl;
+	cout << "Нажмите F10, чтобы открыть командную строку." << endl;
+again:
+	pole();
 retry:
+	cout << "Нажмите любую клавишу для продолжения..." << endl;
+	int key = _getch();
+	if (key == 0) {
+		int pl;
+		char command;
+		cout << "CMD: Доступные команды: b - отмена последнего хода, n - новая игра, r - сбросить счёт, c - закрыть консоль" << endl;
+	again1:
+		cout << "CMD: ";
+		cin >> command;
+		if (command == 'b') {
+			cancel(a, b);
+			ind = true;
+			pole();
+			goto again1;
+		}
+		else if (command == 'n') {
+			newgame();
+			goto newgame;
+		}
+		else if (command == 'r') {
+			wins[0] = 0;
+			wins[1] = 0;
+			goto again1;
+		}
+		else if (command == 'c') {
+			if (ind == true) {
+				if (player == 1) {
+					player = 2;
+				}
+				else {
+					player = 1;
+				}
+				ind = false;
+			}
+			goto next;
+		}
+		else {
+			cout << command << " не является командой" <<endl;
+			goto again1;
+		}
+		
+	}
+	next:
 	cout << "Ход игрока " << player << ": ";
 	cin >> a >> b;
 	if ((a > 10) || (b > 10) || (a < 1) || (b < 1)) {
 		cout << "ОШИБКА! ВЫ ВВЕЛИ КООРДИНАТЫ ЗА ПРЕДЕЛАМИ ПОЛЯ!" << endl;
-		goto retry;
+		goto next;
 	}
 	check = hod(a, b);
 	if (check == 1) {
 		cout << "ОШИБКА! КЛЕТКА ЗАНЯТА!" << endl;
-		goto retry;
+		goto next;
 	}
 	hod(a, b);
 	int end = endgamecheck();
