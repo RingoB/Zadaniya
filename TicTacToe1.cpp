@@ -731,8 +731,8 @@ again1:
 		return 1;
 	}
 	else if (command == 'r') {
-		wins[0] = 0;
-		wins[1] = 0;
+	*(wins) = 0;
+	*(wins+1) = 0;
 		goto again1;
 	}
 	else if (command == 'c') {
