@@ -19,6 +19,7 @@
 
 //Возможно, сделаю его умней потом.
 //Зачем я вообще такого бота добавил? Ответ: Для галочки.
+//Немного оптимизировал код. Возможно всё теперь не работает.
 
 #include <iostream>
 #include <fstream>
@@ -692,9 +693,73 @@ string ExePath() { //Читаем путь
 	string::size_type pos = string(buffer).find_last_of("\\/");
 	return string(buffer).substr(0, pos);
 }
+int bot() {
+	int check;
+	int a, b;
+	pole();
+newhod:
+	a = 1 + rand() % 10;
+	b = 1 + rand() % 10;
+	if ((a > 10) || (b > 10) || (a < 1) || (b < 1)) {
+		goto newhod;
+	}
+	check = hod(a, b);
+	if (check == 1) {
+		goto newhod;
+	}
+	hod(a, b);
+	return 0;
+}
+
+int cmd(int a,int b,int wins[]) {
+	int pl;
+	bool ind = false;
+	bool ng = false;
+	char command;
+	cout << "CMD: Доступные команды: b - отмена последнего хода, n - новая игра, r - сбросить счёт, c - закрыть консоль" << endl;
+again1:
+	cout << "CMD: ";
+	cin >> command;
+	if (command == 'b') {
+		cancel(a, b);
+		ind = true;
+		pole();
+		goto again1;
+	}
+	else if (command == 'n') {
+		newgame();
+		return 1;
+	}
+	else if (command == 'r') {
+		wins[0] = 0;
+		wins[1] = 0;
+		goto again1;
+	}
+	else if (command == 'c') {
+		if (ind == true) {
+			if (player == 1) {
+				player = 2;
+			}
+			else {
+				player = 1;
+			}
+			ind = false;
+		}
+		return 0;
+	}
+	else {
+		cout << command << " не является командой" << endl;
+		goto again1;
+	}
+	return 0;
+}
 
 int main() { //Собственно мэин.
 	int wins[2] = { 0,0 };
+	int check;
+	char otvet;
+	int mode;
+	int a = 1, b = 1;
 	string settings = ExePath()+"\\data.ini";
 	fstream file;
 	file.open(settings);
@@ -709,29 +774,14 @@ int main() { //Собственно мэин.
 
 	setlocale(LC_ALL, "rus");
 newgame:
-	int a=1, b=1;
 	bool ind = false;
-	int check;
-	char otvet;
-	int mode;
 	cout << "Крестики-нолики v1.2.1 alpha (с) RingoB" << endl;
 	cout << "1 игрок или 2 игрока? 1/2?" << endl;
 	cin >> mode;
 	cout << "Нажмите F10, чтобы открыть командную строку." << endl;
 again:
 	if ((player == 2) && (mode == 1)) {
-		pole();
-		newhod:
-		a = 1 + rand() % 10;
-		b = 1 + rand() % 10;
-		if ((a > 10) || (b > 10) || (a < 1) || (b < 1)) {
-			goto newhod;
-		}
-		check = hod(a, b);
-		if (check == 1) {
-			goto newhod;
-		}
-		hod(a, b);
+		bot();
 		goto afterbot;
 	}
 	pole();
@@ -739,44 +789,12 @@ retry:
 	cout << "Нажмите любую клавишу для продолжения..." << endl;
 	int key = _getch();
 	if (key == 0) {
-		int pl;
-		char command;
-		cout << "CMD: Доступные команды: b - отмена последнего хода, n - новая игра, r - сбросить счёт, c - закрыть консоль" << endl;
-	again1:
-		cout << "CMD: ";
-		cin >> command;
-		if (command == 'b') {
-			cancel(a, b);
-			ind = true;
-			pole();
-			goto again1;
-		}
-		else if (command == 'n') {
-			newgame();
+		int ng = cmd(a, b, wins);
+		if (ng == 1) {
 			goto newgame;
 		}
-		else if (command == 'r') {
-			wins[0] = 0;
-			wins[1] = 0;
-			goto again1;
-		}
-		else if (command == 'c') {
-			if (ind == true) {
-				if (player == 1) {
-					player = 2;
-				}
-				else {
-					player = 1;
-				}
-				ind = false;
-			}
-			goto next;
-		}
-		else {
-			cout << command << " не является командой" <<endl;
-			goto again1;
-		}
-		
+		ofstream file(settings, ios::out);
+			file << wins[0] << " " << wins[1];//Запись новых значений
 	}
 	next:
 	cout << "Ход игрока " << player << ": ";
