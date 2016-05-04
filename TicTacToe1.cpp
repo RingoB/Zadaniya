@@ -307,7 +307,7 @@ int endgamecheck() { //Проверка комбинаций
 		}
 		if (z < 9) {
 			if (d > 3) { return 1; }
-			if (i == 9) {
+			if (i == 9) { //Костыль
 				break;
 			}
 			if ((ryad9[i] == ryad10[i + 1]) && (ryad9[i] != '.')) { d++; }
@@ -402,7 +402,7 @@ int endgamecheck() { //Проверка комбинаций
 		}
 		if (z < 18) {
 			if (d > 3) { return 1; }
-			if (i == 9) {
+			if (i == 9) { //Костыль
 				break;
 			}
 			if ((ryad9[i] == ryad10[i + 1]) && (ryad9[i] != '.')) { d++; }
@@ -550,7 +550,7 @@ int endgamecheck() { //Проверка комбинаций
 		}
 		if (z < 19) {
 			if (n > 3) { return 1; }
-			if (i == 0) {
+			if (i == 0) { //Костыль 2.
 				break;
 			}
 			if ((ryad9[i] == ryad10[i - 1]) && (ryad9[i] != '.')) { n++; }
