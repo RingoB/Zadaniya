@@ -27,9 +27,8 @@
 // version 1.2.2 alpha changelog:
 // + Оптимизирован код (вместо >800 строк кода теперь 300)
 
-// version 1.2.3 beta changelog:
-// + Убран бот, так как он тупой и бесполензный. Сделать умней я его несмог, он просто не подчинялся. 
-// + Выход из альфы версии в бета.
+// version 1.2.3 alpha changelog:
+// + Бот стал на 0,1% умней.
 
 //Немного оптимизировал код. Возможно всё теперь не работает.
 
@@ -39,30 +38,32 @@
 #include <fstream>
 #include <windows.h>
 #include <conio.h>
+#include <cstdlib>
+#include <ctime>
 using namespace std;
 
 char ryad[10][10] = { { '.','.','.','.','.','.','.','.','.','.' },
-					  { '.','.','.','.','.','.','.','.','.','.' } ,
-					  { '.','.','.','.','.','.','.','.','.','.' } ,
-					  { '.','.','.','.','.','.','.','.','.','.' } ,
-					  { '.','.','.','.','.','.','.','.','.','.' } ,
-					  { '.','.','.','.','.','.','.','.','.','.' } ,
-					  { '.','.','.','.','.','.','.','.','.','.' } ,
-					  { '.','.','.','.','.','.','.','.','.','.' } ,
-					  { '.','.','.','.','.','.','.','.','.','.' } ,
-					  { '.','.','.','.','.','.','.','.','.','.' } };
+{ '.','.','.','.','.','.','.','.','.','.' } ,
+{ '.','.','.','.','.','.','.','.','.','.' } ,
+{ '.','.','.','.','.','.','.','.','.','.' } ,
+{ '.','.','.','.','.','.','.','.','.','.' } ,
+{ '.','.','.','.','.','.','.','.','.','.' } ,
+{ '.','.','.','.','.','.','.','.','.','.' } ,
+{ '.','.','.','.','.','.','.','.','.','.' } ,
+{ '.','.','.','.','.','.','.','.','.','.' } ,
+{ '.','.','.','.','.','.','.','.','.','.' } };
 int player = 1;
 
 int hod(int a, int b) {  //Функция, отвечающая за ходы.
-		if (ryad[a - 1][b - 1] != '.') {
-			return 1;
-		}
-		if (player == 1) {
-			ryad[a - 1][b - 1] = 'X';
-		}
-		else {
-			ryad[a - 1][b - 1] = 'O';
-		}
+	if (ryad[a - 1][b - 1] != '.') {
+		return 1;
+	}
+	if (player == 1) {
+		ryad[a - 1][b - 1] = 'X';
+	}
+	else {
+		ryad[a - 1][b - 1] = 'O';
+	}
 	return 0;
 }
 int endgamecheck() { //Проверка комбинаций
@@ -80,7 +81,7 @@ int endgamecheck() { //Проверка комбинаций
 	for (int i = 0; i < 10; i++) { //Вертикаль
 		if (s > 4) { return 1; }
 		for (int m = 0; m < 10; m++) {
-			if ((ryad[m][i] == ryad[m+1][i]) && (ryad[m][i] != '.')) { s++; }
+			if ((ryad[m][i] == ryad[m + 1][i]) && (ryad[m][i] != '.')) { s++; }
 			else { s = 0; }
 			if (s > 3) { return 1; }
 		}
@@ -126,7 +127,7 @@ int endgamecheck() { //Проверка комбинаций
 	z = 0;
 	for (int i = 0; i < 9; i++) {  //Диагональ влево 2
 		z = 0;
-		for (int m = 9-i; m > 0; m--) {
+		for (int m = 9 - i; m > 0; m--) {
 			if ((ryad[z][m] == ryad[z + 1][m - 1]) && (ryad[z][m] != '.')) { r++; }
 			else { r = 0; }
 			if (r > 3) { return 1; }
@@ -142,9 +143,9 @@ void pole() { //Вывод поля.
 	cout << endl;
 	for (int i = 0; i < 10; i++) {
 		for (int n = 0; n < 10; n++) {
-			cout<< ryad[i][n] << " ";
+			cout << ryad[i][n] << " ";
 		}
-		cout << i+1;
+		cout << i + 1;
 		cout << endl;
 	}
 	return;
@@ -160,7 +161,7 @@ int newgame() { //Обнуление игры.
 	return 0;
 }
 
-void cancel(int a,int b) {
+void cancel(int a, int b) {
 	ryad[a - 1][b - 1] = '.';
 }
 
@@ -171,7 +172,32 @@ string ExePath() { //Читаем путь
 	return string(buffer).substr(0, pos);
 }
 
-int cmd(int a,int b,int wins[]) {
+int bot(int a, int b) {
+	int check;
+	pole();
+newhod:
+	int a1, a2;
+	int b1, b2;
+	int lastA, lastB;
+	srand(time(NULL));
+	a1 = a - 1;
+	a2 = a + 1;
+	b1 = b - 1;
+	b2 = b + 1;
+	lastA = rand() % a2 + a1;
+	lastB = rand() % b2 + b1;
+	if ((lastA > 10) || (lastB > 10) || (lastA < 1) || (lastB < 1)) {
+		goto newhod;
+	}
+	check = hod(lastA, lastB);
+	if (check == 1) {
+		goto newhod;
+	}
+	hod(lastA, lastB);
+	return 0;
+}
+
+int cmd(int a, int b, int wins[]) {
 	int pl;
 	bool ind = false;
 	bool ng = false;
@@ -192,7 +218,7 @@ again1:
 	}
 	else if (command == 'r') {
 		*(wins) = 0;
-		*(wins+1) = 0;
+		*(wins + 1) = 0;
 		goto again1;
 	}
 	else if (command == 'c') {
@@ -217,11 +243,13 @@ again1:
 int main() {
 	int wins[2] = { 0,0 };
 	int check;
-	int a = 1, b = 1;
 	char otvet;
 	int mode;
-	
-	string settings = ExePath()+"\\data.ini";
+	int botA;
+	int botB;
+	int a = 1, b = 1;
+
+	string settings = ExePath() + "\\data.ini";
 	fstream file;
 	file.open(settings);
 	if (file)
@@ -238,10 +266,17 @@ int main() {
 newgame:
 
 	bool ind = false;
-	cout << "Крестики-нолики v1.2.3 beta (с) RingoB" << endl;
+	cout << "Крестики-нолики v1.2.3 alpha (с) RingoB" << endl;
+	cout << "1 игрок или 2 игрока? 1/2?" << endl;
+	cin >> mode;
 	cout << "Нажмите F10, чтобы открыть командную строку." << endl;
 
 again:
+
+	if ((player == 2) && (mode == 1)) {
+		bot(botA, botB);
+		goto afterbot;
+	}
 
 	pole();
 
@@ -256,7 +291,7 @@ retry:
 			goto newgame;
 		}
 		ofstream file(settings, ios::out);
-			file << wins[0] << " " << wins[1];//Запись новых значений
+		file << wins[0] << " " << wins[1];//Запись новых значений
 	}
 
 next:
@@ -275,19 +310,24 @@ next:
 		cout << "ОШИБКА! КЛЕТКА ЗАНЯТА!" << endl;
 		goto next;
 	}
+	botA = a;
+	botB = b;
+	hod(a, b);
+
+afterbot:
 
 	int end = endgamecheck();
 
 	if (end == 1) {
 		pole();
 		cout << "Игрок " << player << " победил!" << endl;
-		wins[player-1]++;
-		cout << "Счёт: Игрок 1 (" << wins[0] << " : " << wins[1] << ") Игрок 2"<<endl;
+		wins[player - 1]++;
+		cout << "Счёт: Игрок 1 (" << wins[0] << " : " << wins[1] << ") Игрок 2" << endl;
 		ofstream file(settings, ios::out);
 		file << wins[0] << " " << wins[1];//Запись новых значений
 		cout << "Хотите начать заново? y/n?: ";
 
-zanovo:
+	zanovo:
 
 		cin >> otvet;
 
