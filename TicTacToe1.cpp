@@ -91,6 +91,7 @@ int endgamecheck() { //Проверка комбинаций
 			if ((ryad[z][m] == ryad[z + 1][m + 1]) && (ryad[z][m] != '.')) { d++; }
 			else { d = 0; }
 			z++;
+			if (z == 10) { break; }
 			if (d > 3) { return 1; }
 		}
 		z = i;
@@ -103,6 +104,7 @@ int endgamecheck() { //Проверка комбинаций
 			if ((ryad[m][z] == ryad[m + 1][z + 1]) && (ryad[m][z] != '.')) { n++; }
 			else { n = 0; }
 			z++;
+			if (z == 10) { break; }
 			if (n > 3) { return 1; }
 		}
 		z = i;
