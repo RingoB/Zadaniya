@@ -1,4 +1,11 @@
 //coded by RingoBarbos. Яндекс.Настольные игры
+
+//-------------------
+//-------------------
+// Код был переписан под двумерные массивы. Возможны баги. Старый билд: https://github.com/RingoB/Zadaniya/blob/24feb/TicTacToeBackup.cpp
+//-------------------
+//------------------
+
 //Некторые проверки можно убрать, но я боюсь. Вдруг все перестанет работать.
 //Нету проверки на ничью. Я её добавлял, но так и не смог проверить, поэтому выпилил.
 //Можно было функцию с проверками комбинаций разбить ещё на несколько функций (Горизонталь, вертикаль, диагоноль влево, диагональ вправо).
@@ -17,11 +24,14 @@
 // version 1.2.1 alpha changelog:
 // + Добавлен тупой бот. 
 
+// version 1.2.2 alpha changelog:
+// + Оптимизирован код (вместо >800 строк кода теперь 300)
+
 //Возможно, сделаю его умней потом.
 //Зачем я вообще такого бота добавил? Ответ: Для галочки.
 //Немного оптимизировал код. Возможно всё теперь не работает.
 
-//Буду позже переписывать под двумерные массивы.
+//Возможно код с багами. Переписывал его под двумерные массивы.
 
 #include <iostream>
 #include <fstream>
@@ -29,627 +39,117 @@
 #include <conio.h>
 using namespace std;
 
-char ryad1[10] = { '.','.', '.', '.', '.', '.', '.', '.', '.', '.' }; //Нам сказали, что глобальные переменные - это зло, но так было проще писать код.
-char ryad2[10] = { '.','.', '.', '.', '.', '.', '.', '.', '.', '.' };
-char ryad3[10] = { '.','.', '.', '.', '.', '.', '.', '.', '.', '.' };
-char ryad4[10] = { '.','.', '.', '.', '.', '.', '.', '.', '.', '.' };
-char ryad5[10] = { '.','.', '.', '.', '.', '.', '.', '.', '.', '.' };
-char ryad6[10] = { '.','.', '.', '.', '.', '.', '.', '.', '.', '.' };
-char ryad7[10] = { '.','.', '.', '.', '.', '.', '.', '.', '.', '.' };
-char ryad8[10] = { '.','.', '.', '.', '.', '.', '.', '.', '.', '.' };
-char ryad9[10] = { '.','.', '.', '.', '.', '.', '.', '.', '.', '.' };
-char ryad10[10] = { '.','.', '.', '.', '.', '.', '.', '.', '.', '.' };
+char ryad[10][10] = { { '.','.','.','.','.','.','.','.','.','.' },
+					  { '.','.','.','.','.','.','.','.','.','.' } ,
+					  { '.','.','.','.','.','.','.','.','.','.' } ,
+					  { '.','.','.','.','.','.','.','.','.','.' } ,
+					  { '.','.','.','.','.','.','.','.','.','.' } ,
+					  { '.','.','.','.','.','.','.','.','.','.' } ,
+					  { '.','.','.','.','.','.','.','.','.','.' } ,
+					  { '.','.','.','.','.','.','.','.','.','.' } ,
+					  { '.','.','.','.','.','.','.','.','.','.' } ,
+					  { '.','.','.','.','.','.','.','.','.','.' } };
 int player = 1;
 
 int hod(int a, int b) {  //Функция, отвечающая за ходы.
-	if (a == 1) {
-		if (ryad1[b - 1] != '.') {
+		if (ryad[a - 1][b - 1] != '.') {
 			return 1;
 		}
 		if (player == 1) {
-			ryad1[b - 1] = 'X';
+			ryad[a - 1][b - 1] = 'X';
 		}
 		else {
-			ryad1[b - 1] = 'O';
+			ryad[a - 1][b - 1] = 'O';
 		}
-	}
-	else if (a == 2) {
-		if (ryad2[b - 1] != '.') {
-			return 1;
-		}
-		if (player == 1) {
-			ryad2[b - 1] = 'X';
-		}
-		else {
-			ryad2[b - 1] = 'O';
-		}
-	}
-	else if (a == 3) {
-		if (ryad3[b - 1] != '.') {
-			return 1;
-		}
-		if (player == 1) {
-			ryad3[b - 1] = 'X';
-		}
-		else {
-			ryad3[b - 1] = 'O';
-		}
-	}
-	else if (a == 4) {
-		if (ryad4[b - 1] != '.') {
-			return 1;
-		}
-		if (player == 1) {
-			ryad4[b - 1] = 'X';
-		}
-		else {
-			ryad4[b - 1] = 'O';
-		}
-	}
-	else if (a == 5) {
-		if (ryad5[b - 1] != '.') {
-			return 1;
-		}
-		if (player == 1) {
-			ryad5[b - 1] = 'X';
-		}
-		else {
-			ryad5[b - 1] = 'O';
-		}
-	}
-	else if (a == 6) {
-		if (ryad6[b - 1] != '.') {
-			return 1;
-		}
-		if (player == 1) {
-			ryad6[b - 1] = 'X';
-		}
-		else {
-			ryad6[b - 1] = 'O';
-		}
-	}
-	else if (a == 7) {
-		if (ryad7[b - 1] != '.') {
-			return 1;
-		}
-		if (player == 1) {
-			ryad7[b - 1] = 'X';
-		}
-		else {
-			ryad7[b - 1] = 'O';
-		}
-	}
-	else if (a == 8) {
-		if (ryad8[b - 1] != '.') {
-			return 1;
-		}
-		if (player == 1) {
-			ryad8[b - 1] = 'X';
-		}
-		else {
-			ryad8[b - 1] = 'O';
-		}
-	}
-	else if (a == 9) {
-		if (ryad9[b - 1] != '.') {
-			return 1;
-		}
-		if (player == 1) {
-			ryad9[b - 1] = 'X';
-		}
-		else {
-			ryad9[b - 1] = 'O';
-		}
-	}
-	else if (a == 10) {
-		if (ryad10[b - 1] != '.') {
-			return 1;
-		}
-		if (player == 1) {
-			ryad10[b - 1] = 'X';
-		}
-		else {
-			ryad10[b - 1] = 'O';
-		}
-	}
 	return 0;
 }
 int endgamecheck() { //Проверка комбинаций
-	int k = 0;
-	int s = 0;
-	int d = 0;
-	int n = 0;
+	int k = 0, s = 0, d = 0, n = 0, p = 0, r = 0;
+
+	for (int i = 0; i < 10; i++) { //Горизонталь
+		if (k > 4) { return 1; }
+		for (int m = 0; m < 10; m++) {
+			if ((ryad[i][m] == ryad[i][m + 1]) && (ryad[i][m] != '.')) { k++; }
+			else { k = 0; }
+			if (k > 3) { return 1; }
+		}
+	}
+
 	for (int i = 0; i < 10; i++) { //Вертикаль
-		if (k > 3) { return 1; }
-		if ((ryad1[i] == ryad2[i]) && (ryad1[i] != '.')) { k++; }
-		else { k = 0; }
-		if (k > 3) { return 1; }
-		if ((ryad2[i] == ryad3[i]) && (ryad2[i] != '.')) { k++; }
-		else { k = 0; }
-		if (k > 3) { return 1; }
-		if ((ryad3[i] == ryad4[i]) && (ryad3[i] != '.')) { k++; }
-		else { k = 0; }
-		if (k > 3) { return 1; }
-		if ((ryad4[i] == ryad5[i]) && (ryad4[i] != '.')) { k++; }
-		else { k = 0; }
-		if (k > 3) { return 1; }
-		if ((ryad5[i] == ryad6[i]) && (ryad5[i] != '.')) { k++; }
-		else { k = 0; }
-		if (k > 3) { return 1; }
-		if ((ryad6[i] == ryad7[i]) && (ryad6[i] != '.')) { k++; }
-		else { k = 0; }
-		if (k > 3) { return 1; }
-		if ((ryad7[i] == ryad8[i]) && (ryad7[i] != '.')) { k++; }
-		else { k = 0; }
-		if (k > 3) { return 1; }
-		if ((ryad8[i] == ryad9[i]) && (ryad8[i] != '.')) { k++; }
-		else { k = 0; }
-		if (k > 3) { return 1; }
-		if ((ryad9[i] == ryad10[i]) && (ryad9[i] != '.')) { k++; }
-		else { k = 0; }
-		if (k > 3) { return 1; }
+		if (s > 4) { return 1; }
+		for (int m = 0; m < 10; m++) {
+			if ((ryad[m][i] == ryad[m+1][i]) && (ryad[m][i] != '.')) { s++; }
+			else { s = 0; }
+			if (s > 3) { return 1; }
+		}
 	}
-	for (int i = 0; i < 9; i++) { //Горизонталь
-		if (s > 3) { return 1; }
-		if ((ryad1[i] == ryad1[i + 1]) && (ryad1[i] != '.')) { s++; }
-		else { s = 0; }
-		if (s > 3) { return 1; }
-	}
-	for (int i = 0; i < 9; i++) {
-		if (s > 3) { return 1; }
-		if ((ryad2[i] == ryad2[i + 1]) && (ryad2[i] != '.')) { s++; }
-		else { s = 0; }
-		if (s > 3) { return 1; }
-	}
-	for (int i = 0; i < 9; i++) {
-		if (s > 3) { return 1; }
-		if ((ryad3[i] == ryad3[i + 1]) && (ryad3[i] != '.')) { s++; }
-		else { s = 0; }
-		if (s > 3) { return 1; }
-	}
-	for (int i = 0; i < 9; i++) {
-		if (s > 3) { return 1; }
-		if ((ryad4[i] == ryad4[i + 1]) && (ryad4[i] != '.')) { s++; }
-		else { s = 0; }
-		if (s > 3) { return 1; }
-	}
-	for (int i = 0; i < 9; i++) {
-		if (s > 3) { return 1; }
-		if ((ryad5[i] == ryad5[i + 1]) && (ryad5[i] != '.')) { s++; }
-		else { s = 0; }
-		if (s > 3) { return 1; }
-	}
-	for (int i = 0; i < 9; i++) {
-		if (s > 3) { return 1; }
-		if ((ryad6[i] == ryad6[i + 1]) && (ryad6[i] != '.')) { s++; }
-		else { s = 0; }
-		if (s > 3) { return 1; }
-	}
-	for (int i = 0; i < 9; i++) {
-		if (s > 3) { return 1; }
-		if ((ryad7[i] == ryad7[i + 1]) && (ryad7[i] != '.')) { s++; }
-		else { s = 0; }
-		if (s > 3) { return 1; }
-	}
-	for (int i = 0; i < 9; i++) {
-		if (s > 3) { return 1; }
-		if ((ryad8[i] == ryad8[i + 1]) && (ryad8[i] != '.')) { s++; }
-		else { s = 0; }
-		if (s > 3) { return 1; }
-	}
-	for (int i = 0; i < 9; i++) {
-		if (s > 3) { return 1; }
-		if ((ryad9[i] == ryad9[i + 1]) && (ryad9[i] != '.')) { s++; }
-		else { s = 0; }
-		if (s > 3) { return 1; }
-	}
-	for (int i = 0; i < 9; i++) {
-		if (s > 3) { return 1; }
-		if ((ryad10[i] == ryad10[i + 1]) && (ryad10[i] != '.')) { s++; }
-		else { s = 0; }
-		if (s > 3) { return 1; }
-	}
-	for (int z = 0; z < 19; z++) { //Диагональ вправо
-		int i = 0;
+
+	int z = 0;
+	for (int i = 0; i < 9; i++) { //Диагональ вправо 1
 		if (d > 3) { return 1; }
-		if (z < 1) {
-			if ((ryad1[i] == ryad2[i + 1]) && (ryad1[i] != '.')) { d++; }
+		for (int m = 0; m < 9; m++) {
+			if ((ryad[z][m] == ryad[z + 1][m + 1]) && (ryad[z][m] != '.')) { d++; }
 			else { d = 0; }
+			z++;
 			if (d > 3) { return 1; }
-			i++;
 		}
-		if (z < 2) {
-			if (d > 3) { return 1; }
-			if ((ryad2[i] == ryad3[i + 1]) && (ryad2[i] != '.')) { d++; }
-			else { d = 0; }
-			if (d > 3) { return 1; }
-			i++;
-		}
-		if (z < 3) {
-			if (d > 3) { return 1; }
-			if ((ryad3[i] == ryad4[i + 1]) && (ryad3[i] != '.')) { d++; }
-			else { d = 0; }
-			if (d > 3) { return 1; }
-			i++;
-		}
-		if (z < 4) {
-			if (d > 3) { return 1; }
-			if ((ryad4[i] == ryad5[i + 1]) && (ryad4[i] != '.')) { d++; }
-			else { d = 0; }
-			if (d > 3) { return 1; }
-			i++;
-		}
-		if (z < 5) {
-			if (d > 3) { return 1; }
-			if ((ryad5[i] == ryad6[i + 1]) && (ryad5[i] != '.')) { d++; }
-			else { d = 0; }
-			if (d > 3) { return 1; }
-			i++;
-		}
-		if (z < 6) {
-			if (d > 3) { return 1; }
-			if ((ryad6[i] == ryad7[i + 1]) && (ryad6[i] != '.')) { d++; }
-			else { d = 0; }
-			if (d > 3) { return 1; }
-			i++;
-		}
-		if (z < 7) {
-			if (d > 3) { return 1; }
-			if ((ryad7[i] == ryad8[i + 1]) && (ryad7[i] != '.')) { d++; }
-			else { d = 0; }
-			if (d > 3) { return 1; }
-			i++;
-		}
-		if (z < 8) {
-			if (d > 3) { return 1; }
-			if ((ryad8[i] == ryad9[i + 1]) && (ryad8[i] != '.')) { d++; }
-			else { d = 0; }
-			if (d > 3) { return 1; }
-			i++;
-		}
-		if (z < 9) {
-			if (d > 3) { return 1; }
-			if (i == 9) { //Костыль
-				break;
-			}
-			if ((ryad9[i] == ryad10[i + 1]) && (ryad9[i] != '.')) { d++; }
-			else { d = 0; }
-			if (d > 3) { return 1; }
-			i++;
-		}
-		if (z == 9) {
-			i = 0;
-		}
-		if (z == 10) {
-			i = 1;
-		}
-		if (z == 11) {
-			i = 2;
-		}
-		if (z == 12) {
-			i = 3;
-		}
-		if (z == 13) {
-			i = 4;
-		}
-		if (z == 14) {
-			i = 5;
-		}
-		if (z == 15) {
-			i = 6;
-		}
-		if (z == 16) {
-			i = 7;
-		}
-		if (z == 17) {
-			i = 8;
-		}
-		if (z == 18) {
-			i = 9;
-		}
-		if (z < 10) {
-			if ((ryad1[i] == ryad2[i + 1]) && (ryad1[i] != '.')) { d++; }
-			else { d = 0; }
-			if (d > 3) { return 1; }
-			i++;
-		}
-		if (z < 11) {
-			if (d > 3) { return 1; }
-			if ((ryad2[i] == ryad3[i + 1]) && (ryad2[i] != '.')) { d++; }
-			else { d = 0; }
-			if (d > 3) { return 1; }
-			i++;
-		}
-		if (z < 12) {
-			if (d > 3) { return 1; }
-			if ((ryad3[i] == ryad4[i + 1]) && (ryad3[i] != '.')) { d++; }
-			else { d = 0; }
-			if (d > 3) { return 1; }
-			i++;
-		}
-		if (z < 13) {
-			if (d > 3) { return 1; }
-			if ((ryad4[i] == ryad5[i + 1]) && (ryad4[i] != '.')) { d++; }
-			else { d = 0; }
-			if (d > 3) { return 1; }
-			i++;
-		}
-		if (z < 14) {
-			if (d > 3) { return 1; }
-			if ((ryad5[i] == ryad6[i + 1]) && (ryad5[i] != '.')) { d++; }
-			else { d = 0; }
-			if (d > 3) { return 1; }
-			i++;
-		}
-		if (z < 15) {
-			if (d > 3) { return 1; }
-			if ((ryad6[i] == ryad7[i + 1]) && (ryad6[i] != '.')) { d++; }
-			else { d = 0; }
-			if (d > 3) { return 1; }
-			i++;
-		}
-		if (z < 16) {
-			if (d > 3) { return 1; }
-			if ((ryad7[i] == ryad8[i + 1]) && (ryad7[i] != '.')) { d++; }
-			else { d = 0; }
-			if (d > 3) { return 1; }
-			i++;
-		}
-		if (z < 17) {
-			if (d > 3) { return 1; }
-			if ((ryad8[i] == ryad9[i + 1]) && (ryad8[i] != '.')) { d++; }
-			else { d = 0; }
-			if (d > 3) { return 1; }
-			i++;
-		}
-		if (z < 18) {
-			if (d > 3) { return 1; }
-			if (i == 9) { //Костыль
-				break;
-			}
-			if ((ryad9[i] == ryad10[i + 1]) && (ryad9[i] != '.')) { d++; }
-			else { d = 0; }
-			if (d > 3) { return 1; }
-			i++;
-		}
-		if (d > 3) { return 1; }
-
+		z = i;
 	}
 
-	for (int z = 0; z < 19; z++) { //Диагональ влево
-		int i = 9;
+	z = 0;
+	for (int i = 0; i < 9; i++) { //Диагональ вправо 2
 		if (n > 3) { return 1; }
-		if (z < 1) {
-			if ((ryad1[i] == ryad2[i - 1]) && (ryad1[i] != '.')) { n++; }
+		for (int m = 0; m < 9; m++) {
+			if ((ryad[m][z] == ryad[m + 1][z + 1]) && (ryad[m][z] != '.')) { n++; }
 			else { n = 0; }
-			i--;
-		}
-		if (z < 2) {
-			if (n > 3) { return 1; }
-			if ((ryad2[i] == ryad3[i - 1]) && (ryad2[i] != '.')) { n++; }
-			else { n = 0; }
-			i--;
-		}
-		if (z < 3) {
-			if (n > 3) { return 1; }
-			if ((ryad3[i] == ryad4[i - 1]) && (ryad3[i] != '.')) { n++; }
-			else { n = 0; }
-			i--;
-		}
-		if (z < 4) {
-			if (n > 3) { return 1; }
-			if ((ryad4[i] == ryad5[i - 1]) && (ryad4[i] != '.')) { n++; }
-			else { n = 0; }
-			i--;
-		}
-		if (z < 5) {
-			if (n > 3) { return 1; }
-			if ((ryad5[i] == ryad6[i - 1]) && (ryad5[i] != '.')) { n++; }
-			else { n = 0; }
-			i--;
-		}
-		if (z < 6) {
-			if (n > 3) { return 1; }
-			if ((ryad6[i] == ryad7[i - 1]) && (ryad6[i] != '.')) { n++; }
-			else { n = 0; }
-			i--;
-		}
-		if (z < 7) {
-			if (n > 3) { return 1; }
-			if ((ryad7[i] == ryad8[i - 1]) && (ryad7[i] != '.')) { n++; }
-			else { n = 0; }
-			i--;
-		}
-		if (z < 8) {
-			if (n > 3) { return 1; }
-			if ((ryad8[i] == ryad9[i - 1]) && (ryad8[i] != '.')) { n++; }
-			else { n = 0; }
-			i--;
-		}
-		if (z < 9) {
-			if (n > 3) { return 1; }
-			if ((ryad9[i] == ryad10[i - 1]) && (ryad9[i] != '.')) { n++; }
-			else { n = 0; }
-			i--;
+			z++;
 			if (n > 3) { return 1; }
 		}
-		if (z == 9) {
-			i = 9;
-		}
-		if (z == 10) {
-			i = 8;
-		}
-		if (z == 11) {
-			i = 7;
-		}
-		if (z == 12) {
-			i = 6;
-		}
-		if (z == 13) {
-			i = 5;
-		}
-		if (z == 14) {
-			i = 4;
-		}
-		if (z == 15) {
-			i = 3;
-		}
-		if (z == 16) {
-			i = 2;
-		}
-		if (z == 17) {
-			i = 1;
-		}
-		if (z == 18) {
-			i = 0;
-		}
-		if (z < 10) {
-			if ((ryad1[i] == ryad2[i - 1]) && (ryad1[i] != '.')) { n++; }
-			else { n = 0; }
-			i--;
-		}
-		if (z < 11) {
-			if (n > 3) { return 1; }
-			if ((ryad2[i] == ryad3[i - 1]) && (ryad2[i] != '.')) { n++; }
-			else { n = 0; }
-			i--;
-		}
-		if (z < 13) {
-			if (n > 3) { return 1; }
-			if ((ryad3[i] == ryad4[i - 1]) && (ryad3[i] != '.')) { n++; }
-			else { n = 0; }
-			i--;
-		}
-		if (z < 14) {
-			if (n > 3) { return 1; }
-			if ((ryad4[i] == ryad5[i - 1]) && (ryad4[i] != '.')) { n++; }
-			else { n = 0; }
-			i--;
-		}
-		if (z < 15) {
-			if (n > 3) { return 1; }
-			if ((ryad5[i] == ryad6[i - 1]) && (ryad5[i] != '.')) { n++; }
-			else { n = 0; }
-			i--;
-		}
-		if (z < 16) {
-			if (n > 3) { return 1; }
-			if ((ryad6[i] == ryad7[i - 1]) && (ryad6[i] != '.')) { n++; }
-			else { n = 0; }
-			i--;
-		}
-		if (z < 17) {
-			if (n > 3) { return 1; }
-			if ((ryad7[i] == ryad8[i - 1]) && (ryad7[i] != '.')) { n++; }
-			else { n = 0; }
-			i--;
-		}
-		if (z < 18) {
-			if (n > 3) { return 1; }
-			if ((ryad8[i] == ryad9[i - 1]) && (ryad8[i] != '.')) { n++; }
-			else { n = 0; }
-			i--;
-		}
-		if (z < 19) {
-			if (n > 3) { return 1; }
-			if (i == 0) { //Костыль 2.
-				break;
-			}
-			if ((ryad9[i] == ryad10[i - 1]) && (ryad9[i] != '.')) { n++; }
-			else { n = 0; }
-			i--;
-		}
-		if (n > 3) { return 1; }
+		z = i;
 	}
 
+	for (int i = 0; i < 9; i++) { //Диагональ влево 1
+		z = i;
+		for (int m = 9; m > 0; m--) {
+			if ((ryad[z][m] == ryad[z + 1][m - 1]) && (ryad[z][m] != '.')) { p++; }
+			else { p = 0; }
+			z++;
+			if (z == 10) { break; }
+			if (p > 3) { return 1; }
+		}
+	}
+
+	z = 0;
+	for (int i = 0; i < 9; i++) {  //Диагональ влево 2
+		z = 0;
+		for (int m = 9-i; m > 0; m--) {
+			if ((ryad[z][m] == ryad[z + 1][m - 1]) && (ryad[z][m] != '.')) { r++; }
+			else { r = 0; }
+			if (r > 3) { return 1; }
+			z++;
+		}
+	}
 }
+
 void pole() { //Вывод поля.
 	for (int i = 1; i < 11; i++) {
 		cout << i << " ";
 	}
 	cout << endl;
 	for (int i = 0; i < 10; i++) {
-		cout << ryad1[i] << " ";
+		for (int n = 0; n < 10; n++) {
+			cout<< ryad[i][n] << " ";
+		}
+		cout << i+1;
+		cout << endl;
 	}
-	cout << "1";
-	cout << endl;
-	for (int i = 0; i < 10; i++) {
-		cout << ryad2[i] << " ";
-	}
-	cout << "2";
-	cout << endl;
-	for (int i = 0; i < 10; i++) {
-		cout << ryad3[i] << " ";
-	}
-	cout << "3";
-	cout << endl;
-	for (int i = 0; i < 10; i++) {
-		cout << ryad4[i] << " ";
-	}
-	cout << "4";
-	cout << endl;
-	for (int i = 0; i < 10; i++) {
-		cout << ryad5[i] << " ";
-	}
-	cout << "5";
-	cout << endl;
-	for (int i = 0; i < 10; i++) {
-		cout << ryad6[i] << " ";
-	}
-	cout << "6";
-	cout << endl;
-	for (int i = 0; i < 10; i++) {
-		cout << ryad7[i] << " ";
-	}
-	cout << "7";
-	cout << endl;
-	for (int i = 0; i < 10; i++) {
-		cout << ryad8[i] << " ";
-	}
-	cout << "8";
-	cout << endl;
-	for (int i = 0; i < 10; i++) {
-		cout << ryad9[i] << " ";
-	}
-	cout << "9";
-	cout << endl;
-	for (int i = 0; i < 10; i++) {
-		cout << ryad10[i] << " ";
-	}
-	cout << "10";
-	cout << endl;
 	return;
 }
 int newgame() { //Обнуление игры.
 	for (int i = 0; i < 10; i++) {
-		ryad1[i] = '.';
-	}
-	for (int i = 0; i < 10; i++) {
-		ryad2[i] = '.';
-	}
-	for (int i = 0; i < 10; i++) {
-		ryad3[i] = '.';
-	}
-	for (int i = 0; i < 10; i++) {
-		ryad4[i] = '.';
-	}
-	for (int i = 0; i < 10; i++) {
-		ryad5[i] = '.';
-	}
-	for (int i = 0; i < 10; i++) {
-		ryad6[i] = '.';
-	}
-	for (int i = 0; i < 10; i++) {
-		ryad7[i] = '.';
-	}
-	for (int i = 0; i < 10; i++) {
-		ryad8[i] = '.';
-	}
-	for (int i = 0; i < 10; i++) {
-		ryad9[i] = '.';
-	}
-	for (int i = 0; i < 10; i++) {
-		ryad10[i] = '.';
+		for (int n = 0; n < 10; n++) {
+			ryad[i][n] = '.';
+		}
 	}
 	player = 1;
 	system("cls");
@@ -657,36 +157,7 @@ int newgame() { //Обнуление игры.
 }
 
 void cancel(int a,int b) {
-	if (a == 1) {
-		(ryad1[b - 1] = '.');
-	}
-	else if (a == 2) {
-		(ryad2[b - 1] = '.');
-	}
-	else if (a == 3) {
-		(ryad3[b - 1] = '.');
-	}
-	else if (a == 4) {
-		(ryad4[b - 1] = '.');
-	}
-	else if (a == 5) {
-		(ryad5[b - 1] = '.');
-	}
-	else if (a == 6) {
-		(ryad6[b - 1] = '.');
-	}
-	else if (a == 7) {
-		(ryad7[b - 1] = '.');
-	}
-	else if (a == 8) {
-		(ryad8[b - 1] = '.');
-	}
-	else if (a == 9) {
-		(ryad9[b - 1] = '.');
-	}
-	else if (a == 10) {
-		(ryad10[b - 1] = '.');
-	}
+	ryad[a - 1][b - 1] = '.';
 }
 
 string ExePath() { //Читаем путь
@@ -695,6 +166,7 @@ string ExePath() { //Читаем путь
 	string::size_type pos = string(buffer).find_last_of("\\/");
 	return string(buffer).substr(0, pos);
 }
+
 int bot() {
 	int check;
 	int a, b;
@@ -733,8 +205,8 @@ again1:
 		return 1;
 	}
 	else if (command == 'r') {
-	*(wins) = 0;
-	*(wins+1) = 0;
+		*(wins) = 0;
+		*(wins+1) = 0;
 		goto again1;
 	}
 	else if (command == 'c') {
@@ -756,12 +228,13 @@ again1:
 	return 0;
 }
 
-int main() { //Собственно мэин.
+int main() {
 	int wins[2] = { 0,0 };
 	int check;
 	char otvet;
 	int mode;
 	int a = 1, b = 1;
+	
 	string settings = ExePath()+"\\data.ini";
 	fstream file;
 	file.open(settings);
@@ -775,21 +248,29 @@ int main() { //Собственно мэин.
 	}
 
 	setlocale(LC_ALL, "rus");
+
 newgame:
+
 	bool ind = false;
-	cout << "Крестики-нолики v1.2.1 alpha (с) RingoB" << endl;
+	cout << "Крестики-нолики v1.2.2 alpha (с) RingoB" << endl;
 	cout << "1 игрок или 2 игрока? 1/2?" << endl;
 	cin >> mode;
 	cout << "Нажмите F10, чтобы открыть командную строку." << endl;
+
 again:
+
 	if ((player == 2) && (mode == 1)) {
 		bot();
 		goto afterbot;
 	}
+
 	pole();
+
 retry:
+
 	cout << "Нажмите любую клавишу для продолжения..." << endl;
 	int key = _getch();
+
 	if (key == 0) {
 		int ng = cmd(a, b, wins);
 		if (ng == 1) {
@@ -798,21 +279,30 @@ retry:
 		ofstream file(settings, ios::out);
 			file << wins[0] << " " << wins[1];//Запись новых значений
 	}
-	next:
+
+next:
+
 	cout << "Ход игрока " << player << ": ";
 	cin >> a >> b;
+
 	if ((a > 10) || (b > 10) || (a < 1) || (b < 1)) {
 		cout << "ОШИБКА! ВЫ ВВЕЛИ КООРДИНАТЫ ЗА ПРЕДЕЛАМИ ПОЛЯ!" << endl;
 		goto next;
 	}
+
 	check = hod(a, b);
+
 	if (check == 1) {
 		cout << "ОШИБКА! КЛЕТКА ЗАНЯТА!" << endl;
 		goto next;
 	}
+
 	hod(a, b);
-	afterbot:
+
+afterbot:
+
 	int end = endgamecheck();
+
 	if (end == 1) {
 		pole();
 		cout << "Игрок " << player << " победил!" << endl;
@@ -821,8 +311,11 @@ retry:
 		ofstream file(settings, ios::out);
 		file << wins[0] << " " << wins[1];//Запись новых значений
 		cout << "Хотите начать заново? y/n?: ";
-	zanovo:
+
+zanovo:
+
 		cin >> otvet;
+
 		if (otvet == 'y') {
 			newgame();
 			goto newgame;
