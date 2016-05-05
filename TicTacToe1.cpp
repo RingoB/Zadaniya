@@ -31,8 +31,6 @@
 //Зачем я вообще такого бота добавил? Ответ: Для галочки.
 //Немного оптимизировал код. Возможно всё теперь не работает.
 
-//Возможно код с багами. Переписывал его под двумерные массивы.
-
 #include <iostream>
 #include <fstream>
 #include <windows.h>
@@ -230,7 +228,7 @@ again1:
 	return 0;
 }
 
-int main() {
+int main() { //Самое ужасное и отвратительное место кода.
 	int wins[2] = { 0,0 };
 	int check;
 	char otvet;
@@ -254,7 +252,7 @@ int main() {
 newgame:
 
 	bool ind = false;
-	cout << "Крестики-нолики v1.2.2 alpha (с) RingoB" << endl;
+	cout << "Крестики-нолики v1.2.1 alpha (с) RingoB" << endl;
 	cout << "1 игрок или 2 игрока? 1/2?" << endl;
 	cin >> mode;
 	cout << "Нажмите F10, чтобы открыть командную строку." << endl;
