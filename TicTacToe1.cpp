@@ -159,11 +159,11 @@ void cancel(int a, int b) {
 	ryad[a - 1][b - 1] = '.';
 }
 
-string ExePath() { //Читаем путь
-	char buffer[MAX_PATH];
-	GetModuleFileNameA(NULL, buffer, MAX_PATH);
-	string::size_type pos = string(buffer).find_last_of("\\/");
-	return string(buffer).substr(0, pos);
+string ExePath() { //Читаем путь (StackOverflow)
+	char buffer[MAX_PATH]; //?
+	GetModuleFileNameA(NULL, buffer, MAX_PATH); //?
+	string::size_type pos = string(buffer).find_last_of("\\/"); //?
+	return string(buffer).substr(0, pos); //?
 }
 
 int bot(int a, int b) {
@@ -256,10 +256,10 @@ int main() {
 	int botB;
 	int a = 1, b = 1;
 
-	string settings = ExePath() + "\\data.ini";
+	string settings = ExePath() + "\\data.ini"; //Путь к файлу
 	fstream file;
 	file.open(settings);
-	if (file)
+	if (file) //Если файл успешно открыт.
 	{
 		file >> wins[0] >> wins[1]; //Считываем значения
 	}
