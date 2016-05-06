@@ -292,7 +292,7 @@ again:
 	pole();
 
 	cout << "Нажмите любую клавишу для продолжения..." << endl;
-	int key = _getch();
+	int key = _getch(); //Как показали эксперименты все кнопки "F[1-12]" == 0 в getch;
 
 	if (key == 0) {
 		int ng = cmd(a, b, wins);
