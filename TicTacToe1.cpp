@@ -1,5 +1,7 @@
 //coded by RingoB.
 
+//Бот в разработке...
+
 #include <iostream>
 #include <fstream>
 #include <windows.h>
