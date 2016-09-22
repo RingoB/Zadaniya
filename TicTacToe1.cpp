@@ -1,7 +1,4 @@
-//coded by RingoBarbos.
-
-// - Бот тупой.
-// - Бот может виснуть.
+//coded by RingoB.
 
 #include <iostream>
 #include <fstream>
