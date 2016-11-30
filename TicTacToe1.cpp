@@ -131,7 +131,7 @@ void cancel(int a, int b) {
 	ryad[a - 1][b - 1] = '.';
 }
 
-string ExePath() { //Читаем путь (StackOverflow)
+string ExePath() { //Читаем путь
 	char buffer[MAX_PATH]; 
 	GetModuleFileNameA(NULL, buffer, MAX_PATH); 
 	string::size_type pos = string(buffer).find_last_of("\\/"); 
