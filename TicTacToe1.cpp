@@ -132,10 +132,10 @@ void cancel(int a, int b) {
 }
 
 string ExePath() { //Читаем путь (StackOverflow)
-	char buffer[MAX_PATH]; //?
-	GetModuleFileNameA(NULL, buffer, MAX_PATH); //?
-	string::size_type pos = string(buffer).find_last_of("\\/"); //?
-	return string(buffer).substr(0, pos); //?
+	char buffer[MAX_PATH]; 
+	GetModuleFileNameA(NULL, buffer, MAX_PATH); 
+	string::size_type pos = string(buffer).find_last_of("\\/"); 
+	return string(buffer).substr(0, pos); 
 }
 
 int bot(int a, int b) {
