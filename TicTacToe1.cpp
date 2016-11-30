@@ -317,6 +317,7 @@ afterbot:
 			goto newgame;
 		}
 		else if (otvet == 'n') {
+			file.close;
 			return 0;
 		}
 		else {
@@ -332,4 +333,5 @@ afterbot:
 		player = 1;
 	}
 	goto again;
+	return 0;
 }
