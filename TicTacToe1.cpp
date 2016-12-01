@@ -139,41 +139,7 @@ string ExePath() { //Читаем путь
 }
 
 int bot(int a, int b) {
-	int i = 0;
-	int check;
-	int a1, a2;
-	int b1, b2;
-	int lastA, lastB;
-	pole();
-newhod:
-	i++;
-	if (i > 10) {
-		lastA = rand() % 10 + 1;
-		lastB = rand() % 10 + 1;
-		if ((lastA > 10) || (lastB > 10) || (lastA < 1) || (lastB < 1)) {
-			goto newhod;
-		}
-		check = hod(lastA, lastB);
-		if (check == 1) {
-			goto newhod;
-		}
-		hod(lastA, lastB);
-	}
-	a1 = a - 1;
-	a2 = a + 1;
-	b1 = b - 1;
-	b2 = b + 1;
-	srand(time(NULL));
-	lastA = rand() % a2 + a1;
-	lastB = rand() % b2 + b1;
-	if ((lastA > 10) || (lastB > 10) || (lastA < 1) || (lastB < 1)) {
-		goto newhod;
-	}
-	check = hod(lastA, lastB);
-	if (check == 1) {
-		goto newhod;
-	}
-	hod(lastA, lastB);
+	//
 	return 0;
 }
 
