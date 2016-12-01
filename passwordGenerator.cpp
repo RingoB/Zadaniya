@@ -97,6 +97,6 @@ int main() {
 		goto begin;
 	}
 	else {
-
+	return 0;
 	}
 	}
