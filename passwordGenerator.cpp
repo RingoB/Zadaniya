@@ -6,11 +6,11 @@
 #include <conio.h>
 using namespace std;
 
-string ExePath() { //Читаем путь (StackOverflow)
-	char buffer[MAX_PATH]; //?
-	GetModuleFileNameA(NULL, buffer, MAX_PATH); //?
-	string::size_type pos = string(buffer).find_last_of("\\/"); //?
-	return string(buffer).substr(0, pos); //?
+string ExePath() {
+	char buffer[MAX_PATH]; 
+	GetModuleFileNameA(NULL, buffer, MAX_PATH); 
+	string::size_type pos = string(buffer).find_last_of("\\/"); 
+	return string(buffer).substr(0, pos); 
 }
 
 int main() {
@@ -33,11 +33,10 @@ int main() {
 	cout << "Enter file name: ";
 	cin >> name;
 	string numb[10] = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" };
-	string settings = ExePath() + "\\"+name+".txt"; //Путь к файлу
+	string settings = ExePath() + "\\"+name+".txt"; 
 	file.open(settings);
-	if (file) //Если файл успешно открыт.
-	{
-		
+	if (file){
+		//ok. go to next step.
 	}
 	else {
 		ofstream file(settings, ios::out);
