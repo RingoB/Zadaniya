@@ -6,11 +6,11 @@
 #include <conio.h>
 using namespace std;
 
-string ExePath() { 
-	char buffer[MAX_PATH]; 
-	GetModuleFileNameA(NULL, buffer, MAX_PATH); 
-	string::size_type pos = string(buffer).find_last_of("\\/"); 
-	return string(buffer).substr(0, pos); 
+string ExePath() { //Читаем путь (StackOverflow)
+	char buffer[MAX_PATH]; //?
+	GetModuleFileNameA(NULL, buffer, MAX_PATH); //?
+	string::size_type pos = string(buffer).find_last_of("\\/"); //?
+	return string(buffer).substr(0, pos); //?
 }
 
 int main() {
@@ -27,16 +27,17 @@ int main() {
 	int ch;
 	string Bword[26] = {"A","B","C","D","E","F", "G","H","I","J","K","L", "M","N","O","P","Q","R", "S","T","U","V","W","X","Y","Z" };
 	string Lword[26] = {"a","b","c","d","e","f", "g","h","i","j","k","l", "m","n","o","p","q","r", "s","t","u","v","w","x","y","z" };
-	string symbols[8] = { "*", "=",")","-","(","+", "/","."};
+	string symbols[8] = { "*", "=",")","-","(","+", "/",".",};
 	string password[50];
 	string name;
 	cout << "Enter file name: ";
 	cin >> name;
 	string numb[10] = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" };
-	string settings = ExePath() + "\\"+name+".txt"; 
+	string settings = ExePath() + "\\"+name+".txt"; //Путь к файлу
 	file.open(settings);
-	if (file) {
-  //ok. go to next step.
+	if (file) //Если файл успешно открыт.
+	{
+		
 	}
 	else {
 		ofstream file(settings, ios::out);
@@ -44,9 +45,9 @@ int main() {
 	ntry:
 	cout << "Enter length (Max 50): ";
 	cin >> size;
-	cout << "Figures count: ";
+	cout << "Figures max count: ";
 	cin >> figures;
-	cout << "Symbols count: ";
+	cout << "Symbols max count: ";
 	cin >> smbls;
 	if (figures + smbls > size) {
 		cout << "Error. Try to input less Symbols/Figures or a longer lenght." << endl;
