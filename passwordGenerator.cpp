@@ -27,7 +27,7 @@ int main() {
 	int ch;
 	string Bword[26] = {"A","B","C","D","E","F", "G","H","I","J","K","L", "M","N","O","P","Q","R", "S","T","U","V","W","X","Y","Z" };
 	string Lword[26] = {"a","b","c","d","e","f", "g","h","i","j","k","l", "m","n","o","p","q","r", "s","t","u","v","w","x","y","z" };
-	string symbols[8] = { "*", "=",")","-","(","+", "/",".",};
+	string symbols[8] = { "*", "=",")","-","(","+", "/","."};
 	string password[50];
 	string name;
 	cout << "Enter file name: ";
