@@ -75,8 +75,8 @@ int main() {
 	}
 	for (int i = 0;i<count;i++) {
 		int n = BinToTen(code[i]);
-		cout << n << endl;
-		file << n << endl;
+		cout << n << " ";
+		file << n << " ";
 	}
 
 	cout << endl;
