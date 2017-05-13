@@ -1,3 +1,12 @@
+//
+//
+//
+// FILE "GetCode.txt" SHOULD BE ALWAYS IN FOLDER WITH THIS PROGRAMM
+//
+//
+
+
+
 #include <iostream>
 #include <fstream>
 #include <string>
