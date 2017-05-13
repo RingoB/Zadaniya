@@ -25,7 +25,7 @@ int main() {
 	setlocale(LC_ALL, "rus");
 	system("title ASCII DECODER by RingoB");
 	ofstream file;
-	ifstream get; // открыли файл для чтения
+	ifstream get; 
 	string OutName = "OutString";
 	string GetName = "GetCode";
 	string settings = ExePath() + "\\" + OutName + ".txt";
