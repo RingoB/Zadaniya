@@ -4,7 +4,8 @@
 // FILE "GetCode.txt" SHOULD BE ALWAYS IN FOLDER WITH THIS PROGRAMM
 //
 //
-
+// 1337 = stop (end) 
+//
 
 
 #include <iostream>
